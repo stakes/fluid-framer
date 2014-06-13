@@ -1,5 +1,5 @@
 ###
-  Responsive Framer
+  Fluid Framer extensions
 
 ###
 
@@ -19,7 +19,7 @@ class FluidFramer
     REGISTER LAYER
   ###
   register: (layer, options = {}) ->
-    @_addLayer(layer, options)
+    @_addLayer layer, options
 
   ###
     GET REGISTERED LAYERS
@@ -33,9 +33,9 @@ class FluidFramer
   _respond: ->
     self = @
     _.each registry, (obj, index) ->
-      self._refreshLayer(obj, self)
+      self._refreshLayer obj
 
-  _refreshLayer: (obj, self) ->  
+  _refreshLayer: (obj) ->  
     layer = obj.targetLayer
     # adjust width
     if obj.autoWidth?
@@ -48,30 +48,40 @@ class FluidFramer
       if obj.heightOffset? then newHeight = newHeight + obj.heightOffset
       layer.height = newHeight
     # alignment within parent
-    switch obj.horizontalAlign
+    switch obj.yAlign
       when 'bottom'
         newY = if layer.superLayer? then layer.superLayer.height else window.innerHeight
         newY = newY - layer.height
-        newY = newY + obj.pinOffset if obj.pinOffset?
-        layer.y = newY
+        layer.y = @_yWithOffset obj, newY
       when 'top'
-        newY = 0
-        if obj.pinOffset? then newY = newY + obj.pinOffset
-        layer.y = newY
+        layer.y = @_yWithOffset obj, 0
       when 'middle'
         layer.centerY()
-    switch obj.verticalAlign 
+        layer.y = @_yWithOffset obj, layer.y
+      when 'center'
+        layer.centerY()
+        layer.y = @_yWithOffset obj, layer.y
+    switch obj.xAlign 
       when 'left'
-        newX = 0
-        if obj.pinOffset? then newY = newY + obj.pinOffset
-        layer.x = newX
+        layer.x = @_xWithOffset obj, 0
       when 'right'
         newX = if layer.superLayer? then layer.superLayer.width else window.innerWidth
         newX = newX - layer.width
-        if obj.pinOffset? then newX = newX + obj.pinOffset
-        layer.x = newX
-      when 'center'
+        layer.x = @_xWithOffset obj, newX 
+      when 'center' 
         layer.centerX()
+        layer.x = @_xWithOffset obj, layer.x
+      when 'middle'
+        layer.centerX()
+        layer.x = @_xWithOffset obj, layer.x
+
+  _xWithOffset: (obj, x) ->
+    x = if obj.xOffset? then x + obj.xOffset else x
+
+  _yWithOffset: (obj, y) ->
+    y = if obj.yOffset? then y + obj.yOffset else y
+
+
 
   ###
     ADD/REMOVE LAYERS FROM REGISTRY
@@ -85,13 +95,14 @@ class FluidFramer
       autoHeight: options.autoHeight
       widthOffset: options.widthOffset
       heightOffset: options.heightOffset
-      verticalAlign: options.verticalAlign
-      horizontalAlign: options.horizontalAlign
-      pinOffset: options.pinOffset
+      xAlign: options.xAlign
+      yAlign: options.yAlign
+      xOffset: options.xOffset
+      yOffset: options.yOffset
     registry.push obj
     self = @
     Utils.domComplete ()->
-      self._refreshLayer(obj, self)
+      self._refreshLayer obj, self
 
   _removeLayer: (layer) ->
     target = _.findWhere @registry, {layer: layer}
@@ -99,9 +110,10 @@ class FluidFramer
 
 
 
-
-
 Framer.Fluid = new FluidFramer
 
 Layer::fluid = (options = {}) ->
-  Framer.Fluid.register(@, options)
+  Framer.Fluid.register @, options
+
+Layer::static = ->
+  Framer.Fluid.unregister @
