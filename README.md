@@ -88,4 +88,4 @@ Returns all of the Layers that are registered. Could help with debugging? Maybe?
 Framer.Fluid.layers() # Returns an array of Layers
 ```
 
-And the [annotated source](http://github.io/stakes/fluid-framer) has more.
+And the [annotated source](http://stakes.github.io/fluid-framer/) has more.
