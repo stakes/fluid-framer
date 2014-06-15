@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>Fluid Framer extensions</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+  <link rel="stylesheet" media="all" href="docco-custom.css" />
+  <link href='http://fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
+</head>
+<body>
+  <div id="container">
+    <div id="background"></div>
+    
+    <ul class="sections">
+        
+          <li id="title">
+              <div class="annotation">
+                  <h1>Fluid Framer</h1>
+                  <p><a href="https://github.com/stakes/fluid-framer">Source on Github</a></p>
+              </div>
+          </li>
+        
+        
+        
+        <li id="section-1">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-1">&#182;</a>
+              </div>
+              <h2 id="framer-js-layer-extensions">Framer.js Layer extensions</h2>
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-2">&#182;</a>
+              </div>
+              <p>If you use the Framer.js prototyping framework and you want to build “responsive” prototypes, this set of extensions to the Framer.js Layer object can be of assistance.</p>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-2">
+            <div class="annotation">
+              
+              
+<h4 id="layer-fluid-">Layer.fluid()</h4>
+<p>Initialize fluid layout for a layer. You can make any layer’s width and height dynamic or set its position absolutely relative to the containing element.</p>
+<p>Layers are resized and repositioned as soon as they are initialized and whenever the browser window is resized.</p>
+<p>You might want to make an image stretch and fill the entire browser:</p>
+<pre><code>myLayer.fluid
+  <span class="hljs-attribute">autoWidth</span>: <span class="hljs-literal">true</span>
+  <span class="hljs-attribute">autoHeight</span>: <span class="hljs-literal">true</span>
+</code></pre><p>Or maybe you want to pin a layer to the lower left of its parent with 10px of padding:</p>
+<pre><code>myLayer.fluid
+  <span class="hljs-attribute">xAlign</span>: <span class="hljs-string">'left'</span>
+  <span class="hljs-attribute">xOffset</span>: <span class="hljs-number">10</span>
+  <span class="hljs-attribute">yAlign</span>: <span class="hljs-string">'bottom'</span>
+  <span class="hljs-attribute">yOffset</span>: -<span class="hljs-number">10</span>
+</code></pre><p>Here are all the available options:</p>
+<pre><code><span class="hljs-comment"># Expand width or height to fill containing element</span>
+<span class="hljs-attribute">autoWidth</span>: Boolean
+<span class="hljs-attribute">autoHeight</span>: Boolean 
+<span class="hljs-comment"># Add or subtract from the calculated width/height</span>
+<span class="hljs-attribute">heightOffset</span>: Number
+<span class="hljs-attribute">widthOffset</span>: Number
+<span class="hljs-comment"># Alignment within containing element</span>
+<span class="hljs-attribute">xAlign</span>: <span class="hljs-string">'left'</span> | <span class="hljs-string">'right'</span> | <span class="hljs-string">'center'</span> <span class="hljs-keyword">or</span> <span class="hljs-string">'middle'</span>
+<span class="hljs-attribute">yAlign</span>: <span class="hljs-string">'bottom'</span> | <span class="hljs-string">'top'</span> | <span class="hljs-string">'center'</span> <span class="hljs-keyword">or</span> <span class="hljs-string">'middle'</span>
+<span class="hljs-comment"># Position relative to alignment</span>
+<span class="hljs-attribute">xOffset</span>: Number
+<span class="hljs-attribute">yOffset</span>: Number
+</code></pre>
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-attribute">Layer</span>::<span class="hljs-function"><span class="hljs-title">fluid</span> = <span class="hljs-params">(options = {})</span> -&gt;</span>
+  Framer.Fluid.register @, options</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-3">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-3">&#182;</a>
+              </div>
+              <h4 id="layer-static-">Layer.static()</h4>
+<p>Remove a layer’s fluid positioning. Whatever options you specified when you made the layer fluid initially will no longer apply. This won’t reset it to its initial position, however.</p>
+<pre><code>myLayer.static()
+</code></pre>
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-attribute">Layer</span>::<span class="hljs-function"><span class="hljs-title">static</span> = -&gt;</span>
+  Framer.Fluid.unregister @</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-4">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-4">&#182;</a>
+              </div>
+              <h4 id="layer-fix-">Layer.fix()</h4>
+<p>An easy way to set a layer to <code>position: fixed</code>. If you want to pin a static header or sidebar in your app’s prototype, this can be your friend.</p>
+<pre><code>myLayer.fix()
+</code></pre>
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-attribute">Layer</span>::<span class="hljs-function"><span class="hljs-title">fix</span> = -&gt;</span>
+  Framer.Fluid.fix @</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-5">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-5">&#182;</a>
+              </div>
+              <h4 id="layer-unfix-">Layer.unfix()</h4>
+<p>An easy way to reset said layer to Framer’s default positioning.</p>
+<pre><code>myLayer.unfix()
+</code></pre>
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-attribute">Layer</span>::<span class="hljs-function"><span class="hljs-title">unfix</span> = -&gt;</span>
+  Framer.Fluid.unfix @</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-6">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-6">&#182;</a>
+              </div>
+              <h2 id="fluidframer-implementation">FluidFramer implementation</h2>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-7">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-7">&#182;</a>
+              </div>
+              <p>If you include fluid-framer.js in your prototype’s index.html file, it’ll automatically create an instance of this class and add all of the shorthand methods above to the Framer.js Layer object’s prototype chain. So unless you’re curious, the rest is basically  implementation details.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">FluidFramer</span></span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-8">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-8">&#182;</a>
+              </div>
+              <p>Array that contains all of the fluid Layers.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  registry = []</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-9">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-9">&#182;</a>
+              </div>
+              <p>Listen for <code>window.onresize</code> and respond by adjusting position and dimensions of fluid Layers.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-attribute">constructor</span>:<span class="hljs-function"> -&gt;</span>
+    self = @
+    <span class="hljs-built_in">window</span>.<span class="hljs-function"><span class="hljs-title">onresize</span> = <span class="hljs-params">(evt)</span> =&gt;</span>
+      <span class="hljs-property">@_respond</span>()</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-10">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-10">&#182;</a>
+              </div>
+              <p>Public method to make a Layer fluid. Called directly like <code>Framer.Fluid.register(myLayer)</code> but why bother when you can just be all <code>myLayer.fluid()</code>? </p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-attribute">register</span>: <span class="hljs-function"><span class="hljs-params">(layer, options = {})</span> -&gt;</span>
+    <span class="hljs-property">@_addLayer</span> layer, options</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-11">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-11">&#182;</a>
+              </div>
+              <p>Samesies to stop resizing/repositioning.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-attribute">unregister</span>: <span class="hljs-function"><span class="hljs-params">(layer)</span> -&gt;</span>
+    <span class="hljs-property">@_removeLayer</span> layer</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-12">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-12">&#182;</a>
+              </div>
+              <p>And these are how we change a Layer from absolute to fixed positioning and back again.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-attribute">fix</span>: <span class="hljs-function"><span class="hljs-params">(layer)</span> -&gt;</span>
+    layer.style =
+      <span class="hljs-attribute">position</span>: <span class="hljs-string">'fixed'</span>
+    layer
+  <span class="hljs-attribute">unfix</span>: <span class="hljs-function"><span class="hljs-params">(layer)</span> -&gt;</span>
+    layer.style =
+      <span class="hljs-attribute">position</span>: <span class="hljs-string">'absolute'</span>
+    layer</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-13">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-13">&#182;</a>
+              </div>
+              <h4 id="framer-fluid-layers-">Framer.Fluid.layers()</h4>
+<p>Returns all of the Layers that are registered. Could help with debugging? Maybe?</p>
+<pre><code>Framer.Fluid.layers() <span class="hljs-comment"># Returns an array of Layers</span>
+</code></pre>
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-attribute">layers</span>:<span class="hljs-function"> -&gt;</span>
+    registry</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-14">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-14">&#182;</a>
+              </div>
+              <p>Iterate over all of the Layers registered with FluidFramer and refresh the size and position of each. </p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-attribute">_respond</span>:<span class="hljs-function"> -&gt;</span>
+    self = @
+    _.each registry, <span class="hljs-function"><span class="hljs-params">(obj, index)</span> -&gt;</span>
+      self._refreshLayer obj</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-15">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-15">&#182;</a>
+              </div>
+              <p>This is where it all goes down. This will get called for each fluid Layer whenever the browser window is resized, as well as when the Layer is initially added.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-attribute">_refreshLayer</span>: <span class="hljs-function"><span class="hljs-params">(obj)</span> -&gt;</span>  
+    layer = obj.targetLayer</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-16">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-16">&#182;</a>
+              </div>
+              <p>Adjust width and height, based on the autoWidth and autoHeight options.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">if</span> obj.autoWidth?
+      newWidth = <span class="hljs-keyword">if</span> obj.widthOffset? <span class="hljs-keyword">then</span> <span class="hljs-property">@_parentWidth</span>(layer) + 
+        obj.widthOffset <span class="hljs-keyword">else</span> <span class="hljs-property">@_parentWidth</span>(layer)
+      layer.width = newWidth
+      layer.style = 
+        <span class="hljs-attribute">backgroundPosition</span>: <span class="hljs-string">'center'</span>
+    <span class="hljs-keyword">if</span> obj.autoHeight?
+      newHeight = <span class="hljs-keyword">if</span> obj.heightOffset? <span class="hljs-keyword">then</span> <span class="hljs-property">@_parentHeight</span>(layer) + 
+        obj.heightOffset <span class="hljs-keyword">else</span> <span class="hljs-property">@_parentHeight</span>(layer)
+      layer.height = newHeight
+      layer.style = 
+        <span class="hljs-attribute">backgroundPosition</span>: <span class="hljs-string">'center'</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-17">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-17">&#182;</a>
+              </div>
+              <p>Set alignment within parent, based on the xAlign and yAlign options.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">switch</span> obj.xAlign 
+      <span class="hljs-keyword">when</span> <span class="hljs-string">'left'</span>
+        layer.x = <span class="hljs-property">@_xWithOffset</span> obj, <span class="hljs-number">0</span>
+      <span class="hljs-keyword">when</span> <span class="hljs-string">'right'</span>
+        newX = <span class="hljs-property">@_parentWidth</span>(layer) - layer.width
+        layer.x = <span class="hljs-property">@_xWithOffset</span> obj, newX 
+      <span class="hljs-keyword">when</span> <span class="hljs-string">'center'</span> 
+        layer.centerX()
+        layer.x = <span class="hljs-property">@_xWithOffset</span> obj, layer.x
+      <span class="hljs-keyword">when</span> <span class="hljs-string">'middle'</span>
+        layer.centerX()
+        layer.x = <span class="hljs-property">@_xWithOffset</span> obj, layer.x
+    <span class="hljs-keyword">switch</span> obj.yAlign
+      <span class="hljs-keyword">when</span> <span class="hljs-string">'bottom'</span>
+        newY = <span class="hljs-property">@_parentHeight</span>(layer) - layer.height
+        layer.y = <span class="hljs-property">@_yWithOffset</span> obj, newY
+      <span class="hljs-keyword">when</span> <span class="hljs-string">'top'</span>
+        layer.y = <span class="hljs-property">@_yWithOffset</span> obj, <span class="hljs-number">0</span>
+      <span class="hljs-keyword">when</span> <span class="hljs-string">'middle'</span>
+        layer.centerY()
+        layer.y = <span class="hljs-property">@_yWithOffset</span> obj, layer.y
+      <span class="hljs-keyword">when</span> <span class="hljs-string">'center'</span>
+        layer.centerY()
+        layer.y = <span class="hljs-property">@_yWithOffset</span> obj, layer.y</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-18">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-18">&#182;</a>
+              </div>
+              <p>If there are xOffset or yOffset values, apply them before repositioning the Layer.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-attribute">_xWithOffset</span>: <span class="hljs-function"><span class="hljs-params">(obj, x)</span> -&gt;</span>
+    x = <span class="hljs-keyword">if</span> obj.xOffset? <span class="hljs-keyword">then</span> x + obj.xOffset <span class="hljs-keyword">else</span> x
+  <span class="hljs-attribute">_yWithOffset</span>: <span class="hljs-function"><span class="hljs-params">(obj, y)</span> -&gt;</span>
+    y = <span class="hljs-keyword">if</span> obj.yOffset? <span class="hljs-keyword">then</span> y + obj.yOffset <span class="hljs-keyword">else</span> y</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-19">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-19">&#182;</a>
+              </div>
+              <p>Check to see whether the Layer has a superLayer or is on the top level, and return either the superLayer’s dimensions or the browser window’s.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-attribute">_parentWidth</span>: <span class="hljs-function"><span class="hljs-params">(layer)</span>-&gt;</span>
+    <span class="hljs-keyword">if</span> layer.superLayer? <span class="hljs-keyword">then</span> layer.superLayer.width <span class="hljs-keyword">else</span> <span class="hljs-built_in">window</span>.innerWidth
+  <span class="hljs-attribute">_parentHeight</span>: <span class="hljs-function"><span class="hljs-params">(layer)</span>-&gt;</span>
+    <span class="hljs-keyword">if</span> layer.superLayer? <span class="hljs-keyword">then</span> layer.superLayer.height <span class="hljs-keyword">else</span> <span class="hljs-built_in">window</span>.innerHeight</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-20">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-20">&#182;</a>
+              </div>
+              <p>Add a layer to the registry.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-attribute">_addLayer</span>: <span class="hljs-function"><span class="hljs-params">(layer, options = {})</span> -&gt;</span>
+    obj = _.extend options, <span class="hljs-attribute">targetLayer</span>: layer
+    registry.push obj</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-21">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-21">&#182;</a>
+              </div>
+              <p>Layers can be added before the DOM is fully loaded. So, use Framer’s <code>domComplete</code> method to wait until we’re good to go before positioning the layer.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    self = @
+    Utils.domComplete <span class="hljs-function"><span class="hljs-params">()</span>-&gt;</span>
+      self._refreshLayer obj, self
+    layer</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-22">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-22">&#182;</a>
+              </div>
+              <p>Remove a layer from the registry.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-attribute">_removeLayer</span>: <span class="hljs-function"><span class="hljs-params">(layer)</span> -&gt;</span>
+    target = _.findWhere registry, {<span class="hljs-attribute">targetLayer</span>: layer}</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-23">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-23">&#182;</a>
+              </div>
+              <p>But ditch if the target layer isn’t registered.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">return</span> layer <span class="hljs-keyword">if</span> !target?
+    <span class="hljs-keyword">if</span> target.autoWidth? <span class="hljs-keyword">or</span> target.autoHeight?
+      target.style =
+        <span class="hljs-attribute">backgroundPosition</span>: <span class="hljs-string">'initial'</span>
+    registry = _.without registry, target
+    target</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-24">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-24">&#182;</a>
+              </div>
+              <p>Initialize the FluidFramer object as <code>Framer.Fluid</code>.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>Framer.Fluid = <span class="hljs-keyword">new</span> FluidFramer</pre></div></div>
+            
+        </li>
+        
+    </ul>
+  </div>
+</body>
+</html>
