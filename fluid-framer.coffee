@@ -22,6 +22,16 @@ class FluidFramer
     @_addLayer layer, options
 
   ###
+    FIX LAYER (shorthand for style = position: 'fixed')
+  ###
+  fix: (layer) ->
+    layer.style =
+      position: 'fixed'
+  unfix: (layer) ->
+    layer.style =
+      position: 'absolute'
+
+  ###
     GET REGISTERED LAYERS
   ###
   layers: ->
@@ -117,3 +127,9 @@ Layer::fluid = (options = {}) ->
 
 Layer::static = ->
   Framer.Fluid.unregister @
+
+Layer::fix = ->
+  Framer.Fluid.fix @
+
+Layer::unfix = ->
+  Framer.Fluid.unfix @
