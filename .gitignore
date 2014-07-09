@@ -1,4 +1,3 @@
-/prototype.framer/images/.DS_Store
-/prototype.framer/framer/.DS_Store
-/prototype.framer/framer/.bowerrc
-/prototype.framer/config.codekit
+.DS_Store
+.bowerrc
+.codekit
