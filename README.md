@@ -2,6 +2,8 @@
 
 If you use the Framer.js prototyping framework and you want to build "responsive" prototypes, this set of extensions to the Framer.js Layer object can be of assistance. It adds the flexibiity to dynamically scale and float elements in the browser window or within their superLayer.
 
+[Check out the demo](http://stakes.github.io/fluid-framer/prototype.framer/) - elements scale, float and stay absolutely positioned within their parents at any viewport width (the demo works best between 1000-1600px).
+
 ### Usage
 
 Include [fluid-framer.js](https://rawgit.com/stakes/fluid-framer/master/build/fluid-framer.js) in your `index.html` file:
