@@ -1949,7 +1949,7 @@ exports.Layer = (function(_super) {
       }
       this.backgroundColor = null;
       this._setPropertyValue("image", value);
-      imageUrl = 'prototype.framer/'+value;
+      imageUrl = value;
       if (Utils.isLocal()) {
         imageUrl += "?nocache=" + (Date.now());
       }
